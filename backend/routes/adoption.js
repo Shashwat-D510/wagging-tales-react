@@ -1,5 +1,6 @@
 const express = require("express");
 const db = require("../db");
+const sendEmail = require("../utils/sendEmail"); // ✅ ONLY ADDITION
 
 const router = express.Router();
 
@@ -74,10 +75,30 @@ router.post("/", (req, res) => {
         info_confirmed
     ];
 
-    db.query(sql, values, (err, result) => {
+    db.query(sql, values, async (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: "Adoption submission failed" });
+        }
+
+        // ✅ EMAIL (does NOT affect DB success)
+        try {
+            await sendEmail(
+                email,
+                "Adoption Under Process",
+                `Hello ${first_name},
+
+Thank you for choosing to adopt ${dog_name} 🐶
+
+Your adoption application has been successfully submitted and is currently under review.
+Our team will contact you shortly.
+
+Warm regards,
+Wagging Tales Team`
+            );
+        } catch (emailErr) {
+            console.error("Email failed:", emailErr);
+            // ❌ email failure does NOT block adoption
         }
 
         res.json({
@@ -87,8 +108,9 @@ router.post("/", (req, res) => {
     });
 });
 
-module.exports = router;
-
+/* ================= TEST ROUTE ================= */
 router.get("/test", (req, res) => {
     res.send("Adoption route working");
 });
+
+module.exports = router;

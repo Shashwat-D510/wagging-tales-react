@@ -5,6 +5,8 @@ import Signup from "./pages/Signup.jsx";
 import Home from "./pages/Home.jsx";
 import DogListing from "./pages/DogListing.jsx";
 import Adoption from "./pages/AdoptionForm.jsx";
+import FoodCart from "./pages/FoodCart.jsx";
+import Cart from "./pages/Cart.jsx";
 
 function App() {
   return (
@@ -22,6 +24,9 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/dogs" element={<DogListing />} />
         <Route path="/form" element={<Adoption />} />
+        <Route path="/foodcart" element={<FoodCart />} />
+        <Route path="/cart" element={<Cart />} />
+
 
       </Routes>
     </BrowserRouter>

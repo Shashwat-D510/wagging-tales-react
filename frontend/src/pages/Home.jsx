@@ -12,6 +12,8 @@ function Home() {
                         <li className="brand">WAGING TALES🐶</li>
                         <li><Link to="/home">Home</Link></li>
                         <li><a href="#contacts">Contacts</a></li>
+                        <li><Link to="/foodcart">Food</Link></li>
+                        <li><Link to="/cart">Cart</Link></li>
                     </ul>
                 </div>
 
